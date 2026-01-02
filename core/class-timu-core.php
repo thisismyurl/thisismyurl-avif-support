@@ -283,12 +283,7 @@ if ( ! class_exists( 'TIMU_Core_v1' ) ) {
          * Checks if the plugin is currently licensed and registered for this site.
          * * @return bool True if a valid license is detected.
          */
-        To ensure the API's specific error message is displayed when a site is unregistered, you need to verify that class-timu-core.php correctly captures the message string from your JSON response and that class-timu-admin.php triggers this check before rendering the UI.
-
-1. Update the Logic in class-timu-core.php
-In your is_licensed() method, ensure the $this->license_message property is populated with the exact string returned by your API.
-
-PHP
+      
 
 public function is_licensed() {
     $key = $this->get_plugin_option( 'registration_key', '' );
