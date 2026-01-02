@@ -71,7 +71,7 @@ class TIMU_AVIF_Support extends TIMU_Core_v1 {
         );
 
         if ( $webp_active ) {
-            $handling_options['webp'] = __( 'Convert Uploads to .webp.', 'thisismyurl-avif-support' );
+            $handling_options['webp'] = __( 'Convert uploads to .webp files.', 'thisismyurl-avif-support' );
         }
 
         $blueprint = array(
@@ -80,26 +80,26 @@ class TIMU_AVIF_Support extends TIMU_Core_v1 {
                 'fields' => array(
                     'enabled' => array(
                         'type'      => 'switch',
-                        'label'     => __( 'Enable AVIF Uploads', 'thisismyurl-avif-support' ),
+                        'label'     => __( 'Enable AVIF File Uploads', 'thisismyurl-avif-support' ),
                         'desc'      => __( 'Allows .avif files to be uploaded to the Media Library.', 'thisismyurl-avif-support' ),
-                        'is_parent' => true, // Mark as parent for primary visibility
+                        'is_parent' => true, 
                         'default'   => 1
                     ),
                     'handling_mode' => array(
                         'type'    => 'radio',
                         'label'   => __( 'AVIF Handling Mode', 'thisismyurl-avif-support' ),
-                        'parent'  => 'enabled', // Child of the main Enable switch
+                        'parent'  => 'enabled', 
                         'options' => $handling_options,
                         'default' => 'asis',
                         'desc'    => $webp_active 
-                            ? __( 'Choose how to handle image uploads for AVIF compatibility.', 'thisismyurl-avif-support' )
-                            : __( 'WebP conversion requires the WebP Support plugin.', 'thisismyurl-avif-support' )
+                            ? __( 'Choose how to handle image uploads for .avif compatibility.', 'thisismyurl-avif-support' )
+                            : __( 'WebP conversion requires the <a href="https://thisismyurl.com/thisismyurl-webp-support/">WebP Support plugin</a>.', 'thisismyurl-avif-support' )
                     ),
                     'quality' => array(
                         'type'    => 'number',
                         'label'   => __( 'Compression Quality', 'thisismyurl-avif-support' ),
                         'desc'    => __( 'Set image quality from 1-100 (Default: 80).', 'thisismyurl-avif-support' ),
-                        'parent'  => 'enabled', // Hide if AVIF support is disabled
+                        'parent'  => 'enabled', 
                         'min'     => 1,
                         'max'     => 100,
                         'default' => 80

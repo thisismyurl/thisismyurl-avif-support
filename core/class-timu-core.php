@@ -159,32 +159,40 @@ if ( ! class_exists( 'TIMU_Core_v1' ) ) {
         }
 
         protected function render_core_header() {
-            $fs = $this->init_fs();
-            $icon_rel = 'assets/icon.png';
-            $icon_path = WP_PLUGIN_DIR . '/' . $this->plugin_slug . '/' . $icon_rel;
-            
-            if ( ! empty( $this->plugin_icon ) ) {
-                $icon_url = $this->plugin_icon;
-            } elseif ( $fs->exists( $icon_path ) ) {
-                $icon_url = $this->plugin_url . $icon_rel;
-            } else {
-                $icon_url = $this->plugin_url . 'core/assets/default-icon.png';
-            }
+    $fs = $this->init_fs();
+    $icon_rel = 'assets/icon.png';
+    $icon_path = WP_PLUGIN_DIR . '/' . $this->plugin_slug . '/' . $icon_rel;
+    $icon_url = '';
 
-            $donate_url = 'https://thisismyurl.com/donate/?source=' . urlencode( $this->plugin_slug );
-            ?>
-            <div class="timu-header">
-                <img src="<?php echo esc_url( $icon_url ); ?>" alt="<?php esc_attr_e( 'Plugin Icon', 'timu' ); ?>">
-                <h1>
-                    <?php echo esc_html( get_admin_page_title() ); ?> 
-                    <span class="agency-by">
-                        <?php esc_html_e( 'by', 'timu' ); ?> 
-                        <a href="<?php echo esc_url( $donate_url ); ?>" target="_blank" style="text-decoration: none; color: #888;">thisismyurl.com</a>
-                    </span>
-                </h1>
-            </div>
-            <?php
-        }
+    // 1. Check for custom icon provided in constructor
+    if ( ! empty( $this->plugin_icon ) ) {
+        $icon_url = $this->plugin_icon;
+    } 
+    // 2. Check for icon.png in the specific plugin's assets folder
+    elseif ( $fs->exists( $icon_path ) ) {
+        $icon_url = $this->plugin_url . $icon_rel;
+    } 
+    // 3. Fallback to the shared core default icon
+    elseif ( $fs->exists( WP_PLUGIN_DIR . '/' . $this->plugin_slug . '/core/assets/default-icon.png' ) ) {
+        $icon_url = $this->plugin_url . 'core/assets/default-icon.png';
+    }
+
+    $donate_url = 'https://thisismyurl.com/donate/?source=' . urlencode( $this->plugin_slug );
+    ?>
+    <div class="timu-header">
+        <?php if ( ! empty( $icon_url ) ) : ?>
+            <img src="<?php echo esc_url( $icon_url ); ?>" alt="<?php esc_attr_e( 'Plugin Icon', 'timu' ); ?>">
+        <?php endif; ?>
+        <h1>
+            <?php echo esc_html( get_admin_page_title() ); ?> 
+            <span class="agency-by">
+                <?php esc_html_e( 'by', 'timu' ); ?> 
+                <a href="<?php echo esc_url( $donate_url ); ?>" target="_blank" style="text-decoration: none; color: #888;">thisismyurl.com</a>
+            </span>
+        </h1>
+    </div>
+    <?php
+}
 
         protected function render_core_sidebar( $extra_content = '' ) {
             $fs = $this->init_fs();
