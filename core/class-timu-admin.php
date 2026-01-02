@@ -397,25 +397,27 @@ public function add_media_sidebar_actions( $form_fields, $post ) {
         <?php
     }
 
-    public function render_registration_field() {
-        $key = $this->core->get_plugin_option( 'registration_key', '' );
-        ?>
-        <div class="timu-card">
-            <div class="timu-card-header"><?php esc_html_e( 'Registration', 'timu' ); ?></div>
-            <div class="timu-card-body">
-                <table class="form-table">
-                    <tr>
-                        <th scope="row"><?php esc_html_e( 'Key', 'timu' ); ?></th>
-                        <td>
-                            <input type="text" name="<?php echo esc_attr( $this->core->plugin_slug ); ?>_options[registration_key]" value="<?php echo esc_attr( $key ); ?>" class="regular-text">
-                            <p class="description">Status: <strong><?php echo esc_html( $this->core->license_message ); ?></strong></p>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+    ppublic function render_registration_field() {
+    // Force a license check to update the message property
+    $this->core->is_licensed();
+    $key = $this->core->get_plugin_option( 'registration_key', '' );
+    ?>
+    <div class="timu-card">
+        <div class="timu-card-header"><?php esc_html_e( 'Registration', 'timu' ); ?></div>
+        <div class="timu-card-body">
+            <table class="form-table">
+                <tr>
+                    <th scope="row"><?php esc_html_e( 'Key', 'timu' ); ?></th>
+                    <td>
+                        <input type="text" name="<?php echo esc_attr( $this->core->plugin_slug ); ?>_options[registration_key]" value="<?php echo esc_attr( $key ); ?>" class="regular-text">
+                        <p class="description">Status: <strong><?php echo esc_html( $this->core->license_message ); ?></strong></p>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <?php
-    }
+    </div>
+    <?php
+}
 
     /**
  * 6. SIDEBAR BULK ACTIONS

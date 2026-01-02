@@ -288,7 +288,7 @@ if ( ! class_exists( 'TIMU_Core_v1' ) ) {
 
             if ( empty( $key ) ) {
                 $this->license_message = __( 'Unregistered', 'timu' );
-                return false; 
+                return false;
             }
 
             $cache_key = $this->plugin_slug . '_license_status';
@@ -299,7 +299,7 @@ if ( ! class_exists( 'TIMU_Core_v1' ) ) {
                 return true;
             }
 
-            // Build the request to your specific endpoint
+            // Prepare the API URL dynamically
             $api_url = add_query_arg( array(
                 'url'  => get_site_url(),
                 'item' => $this->plugin_slug,
@@ -315,14 +315,14 @@ if ( ! class_exists( 'TIMU_Core_v1' ) ) {
 
             $body = json_decode( wp_remote_retrieve_body( $response ), true );
 
-            // Strictly check for the "active" status returned by your JSON
+            // Strictly check for the "active" status from your JSON response
             if ( isset( $body['status'] ) && 'active' === $body['status'] ) {
                 set_transient( $cache_key, 'active', 12 * HOUR_IN_SECONDS );
                 $this->license_message = __( 'Active', 'timu' );
                 return true;
             }
 
-            // If status is "invalid" or anything else, return false
+            // Handle the "invalid" status and display the specific message from the API
             $this->license_message = isset( $body['message'] ) ? esc_html( $body['message'] ) : __( 'Invalid License', 'timu' );
             return false;
         }
