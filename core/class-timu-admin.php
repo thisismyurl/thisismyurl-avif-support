@@ -397,7 +397,7 @@ public function add_media_sidebar_actions( $form_fields, $post ) {
         <?php
     }
 
-    ppublic function render_registration_field() {
+    public function render_registration_field() {
     // Force a license check to update the message property
     $this->core->is_licensed();
     $key = $this->core->get_plugin_option( 'registration_key', '' );
