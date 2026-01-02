@@ -39,3 +39,28 @@ input:checked + .timu-slider:before { transform: translateX(18px); }
 .timu-marketing-sidebar {
     height: 100%;
 }
+
+
+
+
+/** * Styling for the disabled bulk button and save highlight
+ */
+#timu-run-bulk:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+    background: #f0f0f1 !important;
+    border-color: #dcdcde !important;
+    color: #a7aaad !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+
+.timu-highlight-save {
+    animation: timu-pulse 2s infinite;
+}
+
+@keyframes timu-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); box-shadow: 0 0 10px rgba(34, 113, 177, 0.7); }
+    100% { transform: scale(1); }
+}

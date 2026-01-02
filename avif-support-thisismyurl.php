@@ -1,16 +1,31 @@
 <?php
 /**
- * TIMU AVIF Support Plugin
- *
- * This plugin facilitates the secure handling and optimization of AVIF images within 
- * the WordPress Media Library. It leverages the TIMU Shared Core to provide centralized 
- * settings management and cross-plugin rasterization logic (AVIF to WebP).
- *
- * @package    TIMU_AVIF_Support
- * @author     Christopher Ross <https://thisismyurl.com/>
- * @version    1.260102
- * @license    GPL-2.0+
+ * Author:              Christopher Ross
+ * Author URI:          https://thisismyurl.com/?source=avif-support-thisismyurl
+ * Plugin Name:         AVIF Support by thisismyurl.com
+ * Plugin URI:          https://thisismyurl.com/avif-support-thisismyurl/?source=avif-support-thisismyurl
+ * Donate link:         https://thisismyurl.com/donate/?source=avif-support-thisismyurl
+ * 
+ * Description:         Safely enable AVIF uploads and convert existing images to AVIF format.
+ * Tags:                avif, uploads, media library, optimization
+ * 
+ * Version:             1.260101
+ * Requires at least:   5.3
+ * Requires PHP:        7.4
+ * 
+ * Update URI:          https://github.com/thisismyurl/avif-support-thisismyurl
+ * GitHub Plugin URI:   https://github.com/thisismyurl/avif-support-thisismyurl
+ * Primary Branch:      main
+ * Text Domain:         avif-support-thisismyurl
+ * 
+ * License:             GPL2
+ * License URI:         https://www.gnu.org/licenses/gpl-2.0.html
+ * 
+ * @package TIMU_AVIF_Support
+ * 
+ * 
  */
+
 
 /**
  * Security: Prevent direct file access to mitigate path traversal or unauthorized execution.
@@ -78,6 +93,9 @@ class TIMU_AVIF_Support extends TIMU_Core_v1 {
 		 * Activation: Ensure baseline defaults are registered in the options table.
 		 */
 		register_activation_hook( __FILE__, array( $this, 'activate_plugin_defaults' ) );
+
+
+		add_action( 'timu_sidebar_under_banner', array( $this, 'render_default_sidebar_actions' ) );
 	}
 
 	/**
@@ -94,7 +112,7 @@ class TIMU_AVIF_Support extends TIMU_Core_v1 {
 		 * Build the radio options dynamically based on the current plugin ecosystem.
 		 */
 		$handling_options = array(
-			'asis' => __( 'Upload as a .avif file.', 'avif-support-thisismyurl' ),
+			'avif' => __( 'Upload as a .avif file.', 'avif-support-thisismyurl' ),
 		);
 
 		if ( $webp_active ) {
@@ -112,24 +130,33 @@ class TIMU_AVIF_Support extends TIMU_Core_v1 {
 						'is_parent' => true, // Triggers cascading visibility in shared-admin.js.
 						'default'   => 1,
 					),
-					'handling_mode' => array(
+					'target_format' => array(
 						'type'    => 'radio',
 						'label'   => __( 'AVIF Handling Mode', 'avif-support-thisismyurl' ),
 						'parent'  => 'enabled', // Subordinate to the main enable switch.
 						'options' => $handling_options,
-						'default' => 'asis',
+						'default' => 'avif',
 						'desc'    => $webp_active
 							? __( 'Choose how to handle image uploads for .avif compatibility.', 'avif-support-thisismyurl' )
 							: __( 'WebP conversion requires the <a href="https://thisismyurl.com/thisismyurl-webp-support/">WebP Support plugin</a>.', 'avif-support-thisismyurl' ),
 					),
-					'quality'       => array(
-						'type'    => 'number',
-						'label'   => __( 'Compression Quality', 'avif-support-thisismyurl' ),
-						'desc'    => __( 'Set image quality from 1-100 (Default: 80).', 'avif-support-thisismyurl' ),
-						'parent'  => 'enabled',
-						'min'     => 1,
-						'max'     => 100,
-						'default' => 80,
+					'avif_quality'  => array(
+						'type'         => 'number',
+						'label'        => __( 'AVIF Quality', 'svg-support-thisismyurl' ),
+						'default'      => 80,
+						'show_if' => array(
+							'field' => 'target_format', // Must match the ID of your radio buttons
+							'value' => 'avif'           // Must match the value 'webp' in the radio option
+						)
+					),
+					'webp_quality'  => array(
+						'type'         => 'number',
+						'label'        => __( 'WebP Quality', 'svg-support-thisismyurl' ),
+						'default'      => 80,
+						'show_if' => array(
+							'field' => 'target_format', // Must match the ID of your radio buttons
+							'value' => 'webp'           // Must match the value 'webp' in the radio option
+						)
 					),
 				),
 			),
