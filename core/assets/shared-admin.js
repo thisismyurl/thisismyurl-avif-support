@@ -1,8 +1,7 @@
 /**
  * TIMU Shared Admin UI
  * Handles visibility, color pickers, media uploader, and native WP controls.
- * Version: 1.26010212
- * 
+ * Version: 1.26010216
  */
 jQuery(document).ready(function($) {
     'use strict';
@@ -33,11 +32,19 @@ jQuery(document).ready(function($) {
         initMediaUploader: function() {
             $(document).on('click', '.media_btn', function(e) {
                 e.preventDefault();
-                const btn = $(this), target = $(btn.data('target')), preview = $(btn.data('preview'));
-                const frame = wp.media({ title: 'Select Media', multiple: false }).on('select', function() {
+                const btn = $(this), 
+                      target = $(btn.data('target')), 
+                      preview = $(btn.data('preview'));
+                
+                const frame = wp.media({ 
+                    title: 'Select Media', 
+                    multiple: false 
+                }).on('select', function() {
                     const asset = frame.state().get('selection').first().toJSON();
                     target.val(asset.url);
-                    if (preview.length) { preview.html('<img src="' + asset.url + '" style="max-width:100%;">'); }
+                    if (preview.length) { 
+                        preview.html('<img src="' + asset.url + '" style="max-width:100%;">'); 
+                    }
                 }).open();
             });
         },
@@ -89,12 +96,12 @@ jQuery(document).ready(function($) {
         bindEvents: function() {
             const self = this;
             
-            // Re-run visibility check on any input change
+            // 1. Re-run visibility check on any input change
             $(document).on('change', 'input, select', function() {
                 self.initDynamicVisibility(300);
             });
 
-            // Password Toggle Logic
+            // 2. Password Toggle Logic
             $(document).on('click', '.timu-toggle-password', function() {
                 const $btn = $(this);
                 const $input = $btn.prev('input');
@@ -102,6 +109,7 @@ jQuery(document).ready(function($) {
                 $input.attr('type', isPassword ? 'text' : 'password');
                 $btn.text(isPassword ? 'Hide' : 'Show');
             });
+
         }
     };
 

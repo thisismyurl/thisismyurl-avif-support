@@ -34,6 +34,8 @@ class TIMU_Ajax_v1 {
         
         // Sibling tool installer
         add_action( 'wp_ajax_timu_install_tool', array( $this->core, 'ajax_install_plugin' ) );
+
+        add_action( 'wp_ajax_timu_verify_license', array( $this, 'ajax_verify_license' ) ); //
     }
 
     /**
@@ -209,6 +211,9 @@ class TIMU_Ajax_v1 {
 
         wp_send_json_success( sprintf( __( 'Successfully restored %d images.', 'timu' ), $count ) );
     }
+
+    
+
 
     /**
      * Internal: Resolve metadata prefix based on plugin context.

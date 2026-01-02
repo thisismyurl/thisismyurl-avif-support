@@ -9,7 +9,7 @@
  * Description:         Safely enable AVIF uploads and convert existing images to AVIF format.
  * Tags:                avif, uploads, media library, optimization
  * 
- * Version:             1.26010212
+ * Version:             1.26010216
  * Requires at least:   5.3
  * Requires PHP:        7.4
  * 
@@ -27,12 +27,15 @@
  */
 
 
+
 /**
  * Security: Prevent direct file access to mitigate path traversal or unauthorized execution.
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+
 
 /**
  * Version-aware Core Loader
@@ -108,6 +111,8 @@ class TIMU_AVIF_Support extends TIMU_Core_v1 {
 		/** @var bool $webp_active Dependency check for sibling WebP plugin. */
 		$webp_active = class_exists( 'TIMU_WebP_Support' );
 
+		$this->is_licensed();
+
 		/**
 		 * Build the radio options dynamically based on the current plugin ecosystem.
 		 */
@@ -163,6 +168,15 @@ class TIMU_AVIF_Support extends TIMU_Core_v1 {
 							'value' => 'webp'           // Must match the value 'webp' in the radio option
 						)
 					),
+					'hr'  => array(
+						'type'    	=> 'hr'
+					),
+					'license_key'  => array(
+						'type'    => 'license', // Now a slider!
+						'default' => '',
+						'label'        => __( 'License Key', 'webp-support-thisismyurl' ),
+						'desc'      => ( $this->license_message )
+					),
 				),
 			),
 		);
@@ -172,6 +186,8 @@ class TIMU_AVIF_Support extends TIMU_Core_v1 {
 		 */
 		$this->init_settings_generator( $blueprint );
 	}
+
+	
 
 	/**
 	 * Default Option Initialization

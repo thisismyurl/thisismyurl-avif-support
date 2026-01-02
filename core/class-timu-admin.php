@@ -152,19 +152,32 @@ public function render_generated_field( $args ) {
                 echo '</div>';
             }
             break;
-           case 'date':
-    echo '<input type="text" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" class="timu-datepicker regular-text" autocomplete="off" />';
-    break;
+                case 'date':
+                echo '<input type="text" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" class="timu-datepicker regular-text" autocomplete="off" />';
+                break;
     
-    case 'password':
-    echo '<div class="timu-password-wrapper" style="position:relative; display:inline-block;">';
-    echo '<input type="password" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" class="regular-text" />';
-    echo '<button type="button" class="button timu-toggle-password" style="margin-left:5px;">' . esc_html__('Show', 'timu') . '</button>';
-    echo '</div>';
-    break;
-case 'code':
-    echo '<textarea name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" class="timu-code-editor" rows="5" style="width:100%; font-family:monospace;">' . esc_textarea( $value ) . '</textarea>';
-    break;
+        case 'password':
+            echo '<div class="timu-password-wrapper" style="position:relative; display:inline-block;">';
+            echo '<input type="password" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" class="regular-text" />';
+            echo '<button type="button" class="button timu-toggle-password" style="margin-left:5px;">' . esc_html__('Show', 'timu') . '</button>';
+            echo '</div>';
+            break;
+
+        case 'code':
+            echo '<textarea name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" class="timu-code-editor" rows="5" style="width:100%; font-family:monospace;">' . esc_textarea( $value ) . '</textarea>';
+            break;
+
+        case 'hr':
+            echo '<hr style="border: 0; border-top: 1px solid #dcdcde; margin: 20px 0;" />';
+            break;
+
+        case 'license':
+            echo '<div class="timu-license-wrapper" style="position:relative; display:inline-block;">';
+            echo '<input type="text" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" class="regular-text" />';
+            echo '</div>';
+            break;
+
+
 
         default:
             echo '<input type="' . esc_attr( $args['type'] ) . '" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" class="regular-text" />';
@@ -248,7 +261,6 @@ public function add_media_sidebar_actions( $form_fields, $post ) {
                                 </div>
                             <?php endforeach; ?>
                             
-                            <?php $this->render_registration_field(); ?>
                             <?php submit_button( null, 'primary large' ); ?>
                             
                             <?php $this->render_unprocessed_log(); ?>
@@ -397,29 +409,7 @@ public function add_media_sidebar_actions( $form_fields, $post ) {
         <?php
     }
 
-    public function render_registration_field() {
-    // This triggers the API check and populates the license_message property
-    $this->core->is_licensed();
-    
-    $key = $this->core->get_plugin_option( 'registration_key', '' );
-    ?>
-    <div class="timu-card">
-        <div class="timu-card-header"><?php esc_html_e( 'Registration', 'timu' ); ?></div>
-        <div class="timu-card-body">
-            <table class="form-table">
-                <tr>
-                    <th scope="row"><?php esc_html_e( 'Key', 'timu' ); ?></th>
-                    <td>
-                        <input type="text" name="<?php echo esc_attr( $this->core->plugin_slug ); ?>_options[registration_key]" value="<?php echo esc_attr( $key ); ?>" class="regular-text">
-                        <p class="description">Status: <strong><?php echo esc_html( $this->core->license_message ); ?></strong></p>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <?php
-}
-
+   
     /**
  * 6. SIDEBAR BULK ACTIONS
  * * Modified to prevent duplication by verifying the current page slug.
