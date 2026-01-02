@@ -64,3 +64,25 @@ input:checked + .timu-slider:before { transform: translateX(18px); }
     50% { transform: scale(1.05); box-shadow: 0 0 10px rgba(34, 113, 177, 0.7); }
     100% { transform: scale(1); }
 }
+
+
+/* Range Slider Styling */
+.timu-range-wrapper input[type=range] {
+    flex-grow: 1;
+    cursor: pointer;
+}
+
+/* Tooltip/Help Icon Styling */
+.timu-help-tip {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: #72aee6;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 11px;
+    line-height: 16px;
+    cursor: help;
+    margin-left: 5px;
+}

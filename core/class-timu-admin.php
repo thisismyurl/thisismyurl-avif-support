@@ -76,17 +76,15 @@ public function render_generated_field( $args ) {
     $value   = $options[ $args['id'] ] ?? ( $args['default'] ?? '' );
     $name    = "{$this->core->plugin_slug}_options[{$args['id']}]";
     
-    // 1. Identify if this is the master toggle for hiding the whole card
     $is_master = ( 'enabled' === $args['id'] ) ? ' timu-master-toggle' : '';
     
-    // 2. IMPORTANT: Generate dynamic attributes from the blueprint for JS to use
+    // Generate dynamic attributes for the JavaScript visibility controller
     $conditional_attrs = '';
     if ( ! empty( $args['show_if'] ) && is_array( $args['show_if'] ) ) {
         $conditional_attrs = ' data-show-if-field="' . esc_attr( $args['show_if']['field'] ) . '"';
         $conditional_attrs .= ' data-show-if-value="' . esc_attr( $args['show_if']['value'] ) . '"';
     }
 
-    // 3. Print the wrapper with the conditional attributes
     echo '<div class="timu-field-wrapper' . esc_attr( $is_master ) . '"' . $conditional_attrs . '>';
     
     switch ( $args['type'] ) {
@@ -96,30 +94,57 @@ public function render_generated_field( $args ) {
             echo '<span class="timu-slider"></span></label>';
             break;
 
-        case 'number':
-            echo '<input type="number" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" step="' . esc_attr( $args['step'] ?? '1' ) . '" min="' . esc_attr( $args['min'] ?? '0' ) . '" max="' . esc_attr( $args['max'] ?? '100' ) . '" class="small-text" />';
+        case 'range': // NEW: Interactive Slider for Quality
+            echo '<div class="timu-range-container" style="display:flex; align-items:center; gap:12px;">';
+            echo '<input type="range" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" step="' . esc_attr( $args['step'] ?? '1' ) . '" min="' . esc_attr( $args['min'] ?? '0' ) . '" max="' . esc_attr( $args['max'] ?? '100' ) . '" oninput="this.nextElementSibling.value = this.value" style="flex-grow:1;" />';
+            echo '<output style="font-weight:bold; min-width:30px;">' . esc_html( $value ) . '</output>%';
+            echo '</div>';
+            break;
+
+        case 'select': // NEW: Dropdown for Handling Modes
+            echo '<select name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" class="regular-text">';
+            foreach ( (array)$args['options'] as $opt_val => $opt_label ) {
+                echo '<option value="' . esc_attr( $opt_val ) . '" ' . selected( $value, $opt_val, false ) . '>' . esc_html( $opt_label ) . '</option>';
+            }
+            echo '</select>';
+            break;
+
+        case 'multicheck': // NEW: For excluding specific image sizes
+            echo '<div class="timu-multicheck-list" style="max-height:150px; overflow-y:auto; background:#f6f7f7; padding:10px; border:1px solid #dcdcde;">';
+            foreach ( (array)$args['options'] as $opt_val => $opt_label ) {
+                $checked = ( is_array( $value ) && in_array( $opt_val, $value ) ) ? 'checked' : '';
+                echo '<label style="display:block; margin-bottom:5px;">';
+                echo '<input type="checkbox" name="' . esc_attr( $name ) . '[]" value="' . esc_attr( $opt_val ) . '" ' . $checked . ' /> ' . esc_html( $opt_label );
+                echo '</label>';
+            }
+            echo '</div>';
+            break;
+
+        case 'media': // NEW: For Watermarking or Brand Logos
+            echo '<div class="timu-media-uploader">';
+            echo '<input type="text" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" class="regular-text" style="display:block; margin-bottom:5px;" />';
+            echo '<button type="button" class="button media_btn" data-target="#' . esc_attr( $args['id'] ) . '">' . esc_html__('Select Image', 'timu') . '</button>';
+            echo '</div>';
             break;
 
         case 'radio':
             if ( ! empty( $args['options'] ) ) {
                 foreach ( $args['options'] as $opt_val => $opt_label ) {
                     echo '<label style="display:block; margin-bottom:5px;">';
-                    echo '<input type="radio" name="' . esc_attr( $name ) . '" value="' . esc_attr( $opt_val ) . '" ' . checked( $opt_val, $value, false ) . ' /> ';
+                    echo '<input type="radio" name="' . esc_attr( $name ) . '" value="' . esc_attr( $opt_val ) . '" ' . checked( $opt_val, $value, false ) . ' class="timu-conditional-trigger" /> ';
                     echo esc_html( $opt_label ) . '</label>';
                 }
             }
             break;
 
         default:
-            echo '<input type="text" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" class="regular-text" />';
+            echo '<input type="' . esc_attr( $args['type'] ) . '" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" class="regular-text" />';
             break;
     }
 
     if ( ! empty( $args['desc'] ) ) {
         echo '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
     }
-
-
     echo '</div>';
 }
 
