@@ -6,7 +6,8 @@
  * It coordinates sub-modules and handles global licensing/filtering.
  *
  * @package     TIMU_Core
- * @version     1.26010211
+ * @version     1.26010212
+ * 
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -58,6 +59,9 @@ if ( ! class_exists( 'TIMU_Core_v1' ) ) {
             if ( method_exists( $this, 'init_updater' ) ) {
                 add_action( 'plugins_loaded', array( $this, 'init_updater' ) );
             }
+
+            add_filter( 'attachment_fields_to_edit', array( $this, 'add_media_sidebar_actions' ), 10, 2 );
+
         }
 
         private function load_components() {
@@ -214,7 +218,15 @@ if ( ! class_exists( 'TIMU_Core_v1' ) ) {
             // Only load the heavy Bulk/AJAX script on the specific settings page
             if ( isset( $_GET['page'] ) && $_GET['page'] === $this->plugin_slug ) {
                 wp_enqueue_script( 'timu-core-bulk', $this->plugin_url . 'core/assets/shared-bulk.js', array( 'jquery', 'timu-core-ui' ), '1.26', true );
+
+                // Required for Color Picker
+                wp_enqueue_style( 'wp-color-picker' );
+                wp_enqueue_script( 'wp-color-picker' );
+
+                // Required for Media Uploader
+                wp_enqueue_media();
             }
+            
 
             wp_localize_script( 'timu-core-ui', 'timu_core_vars', array(
                 'ajax_url' => admin_url( 'admin-ajax.php' ),

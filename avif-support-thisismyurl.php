@@ -9,7 +9,7 @@
  * Description:         Safely enable AVIF uploads and convert existing images to AVIF format.
  * Tags:                avif, uploads, media library, optimization
  * 
- * Version:             1.260101
+ * Version:             1.26010212
  * Requires at least:   5.3
  * Requires PHP:        7.4
  * 

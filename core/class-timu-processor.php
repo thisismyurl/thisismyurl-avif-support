@@ -6,7 +6,8 @@
  * secure vault path generation, and WordPress thumbnail regeneration.
  *
  * @package     TIMU_Core
- * @version     1.260102
+ * @version     1.26010212
+ * 
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

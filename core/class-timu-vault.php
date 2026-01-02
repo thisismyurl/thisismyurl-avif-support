@@ -7,7 +7,8 @@
  * protected from public access and search engine indexing.
  *
  * @package     TIMU_Core
- * @version     1.260102
+ * @version     1.26010212
+ * 
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

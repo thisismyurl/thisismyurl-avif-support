@@ -6,7 +6,8 @@
  * the Settings API registration, card-based UI rendering, and the paginated logs.
  *
  * @package     TIMU_Core
- * @version     1.26010211
+ * @version     1.26010212
+ * 
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -136,6 +137,34 @@ public function render_generated_field( $args ) {
                 }
             }
             break;
+        case 'color': // NEW: WordPress Native Color Picker
+            echo '<input type="text" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" class="timu-color-picker" data-default-color="' . esc_attr( $args['default'] ?? '#2271b1' ) . '" />';
+            break;
+
+        case 'media': // NEW: WP Media Library Uploader
+            echo '<div class="timu-media-control" style="display:flex; gap:10px; align-items:center;">';
+            echo '<input type="text" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" class="regular-text" />';
+            echo '<button type="button" class="button media_btn" data-target="#' . esc_attr( $args['id'] ) . '">' . esc_html__('Select File', 'timu') . '</button>';
+            echo '</div>';
+            if ( ! empty( $value ) ) {
+                echo '<div class="timu-media-preview" style="margin-top:10px; max-width:150px; border:1px solid #ccd0d4; padding:5px; background:#fff;">';
+                echo '<img src="' . esc_url( $value ) . '" style="max-width:100%; height:auto; display:block;" />';
+                echo '</div>';
+            }
+            break;
+           case 'date':
+    echo '<input type="text" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" class="timu-datepicker regular-text" autocomplete="off" />';
+    break;
+    
+    case 'password':
+    echo '<div class="timu-password-wrapper" style="position:relative; display:inline-block;">';
+    echo '<input type="password" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" class="regular-text" />';
+    echo '<button type="button" class="button timu-toggle-password" style="margin-left:5px;">' . esc_html__('Show', 'timu') . '</button>';
+    echo '</div>';
+    break;
+case 'code':
+    echo '<textarea name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" class="timu-code-editor" rows="5" style="width:100%; font-family:monospace;">' . esc_textarea( $value ) . '</textarea>';
+    break;
 
         default:
             echo '<input type="' . esc_attr( $args['type'] ) . '" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" class="regular-text" />';
@@ -149,7 +178,55 @@ public function render_generated_field( $args ) {
 }
 
 
-    
+    public function render_progress_bar($percent = 0) {
+    echo '<div class="timu-progress-wrap" style="background:#dcdcde; height:20px; border-radius:10px; overflow:hidden; margin:10px 0;">';
+    echo '<div class="timu-progress-bar" style="width:' . (int)$percent . '%; background:#46b450; height:100%; transition: width 0.3s ease;"></div>';
+    echo '</div>';
+}
+
+public function render_nav_tabs() {
+    $current_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general';
+    $tabs = array(
+        'general' => __('General Settings', 'timu'),
+        'bulk'    => __('Bulk Operations', 'timu'),
+        'tools'   => __('Advanced Tools', 'timu')
+    );
+
+    echo '<h2 class="nav-tab-wrapper">';
+    foreach ( $tabs as $tab => $name ) {
+        $active = ( $current_tab === $tab ) ? 'nav-tab-active' : '';
+        echo '<a class="nav-tab ' . $active . '" href="?page=' . $this->core->plugin_slug . '&tab=' . $tab . '">' . esc_html($name) . '</a>';
+    }
+    echo '</h2>';
+}
+
+public function add_help_tabs() {
+    $screen = get_current_screen();
+    if ( $screen->id !== 'settings_page_' . $this->core->plugin_slug ) return;
+
+    $screen->add_help_tab( array(
+        'id'      => 'timu_general_help',
+        'title'   => __('Optimization Help', 'timu'),
+        'content' => '<p>' . __('Instructions for WebP/AVIF settings...', 'timu') . '</p>',
+    ) );
+}
+
+public function render_admin_notices() {
+    if ( isset( $_GET['settings-updated'] ) ) {
+        echo '<div class="notice notice-success is-dismissible"><p>' . __('Settings saved successfully.', 'timu') . '</p></div>';
+    }
+}
+
+
+
+public function add_media_sidebar_actions( $form_fields, $post ) {
+    $form_fields['timu_optimization'] = array(
+        'label' => __('Optimization', 'timu'),
+        'input' => 'html',
+        'html'  => '<button type="button" class="button timu-process-single" data-id="'.$post->ID.'">Re-optimize</button>',
+    );
+    return $form_fields;
+}
     /**
      * 3. THE SETTINGS PAGE MAIN WRAPPER
      */
