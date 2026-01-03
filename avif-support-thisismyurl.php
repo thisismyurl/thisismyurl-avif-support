@@ -2,7 +2,7 @@
 /**
  * Author:              Christopher Ross
  * Author URI:          https://thisismyurl.com/?source=avif-support-thisismyurl
- * Plugin Name:         AVIF Support by thisismyurl.com
+ * Plugin Name:         AVIF Support by thisismyurl
  * Plugin URI:          https://thisismyurl.com/avif-support-thisismyurl/?source=avif-support-thisismyurl
  * Donate link:         https://thisismyurl.com/avif-support-thisismyurl/#register?source=avif-support-thisismyurl
  * 
