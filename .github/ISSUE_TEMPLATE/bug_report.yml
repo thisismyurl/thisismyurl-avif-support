@@ -1,0 +1,8 @@
+name: Bug Report
+labels: ["bug"]
+body:
+  - type: input
+    attributes:
+      label: WP Version
+    validations:
+      required: true

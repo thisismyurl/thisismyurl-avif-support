@@ -213,10 +213,6 @@ class TIMU_Ajax_v1 {
     }
 
     
-
-
-    /**
-     * Internal: Resolve metadata prefix based on plugin context.
      */
     private function get_internal_prefix() {
         if ( strpos( $this->core->plugin_slug, 'webp' ) !== false ) return 'webp';

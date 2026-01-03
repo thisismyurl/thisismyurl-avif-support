@@ -9,16 +9,9 @@
  * @version     1.26010216
  * 
  */
-
-
-
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
-
-
-if ( ! class_exists( 'TIMU_Core_v1' ) ) {
-
     abstract class TIMU_Core_v1 {
 
         public $plugin_slug;
@@ -207,11 +200,7 @@ if ( ! class_exists( 'TIMU_Core_v1' ) ) {
 
  
         public function enqueue_core_assets( $hook ) {
-
-
             wp_enqueue_style( 'timu-core-css', $this->plugin_url . 'core/assets/shared-admin.css', array(), '1.1.4' );
-
-            if ( strpos( $hook, $this->plugin_slug ) === false ) return;
 
             // Load Basic UI Script on all plugin pages
             wp_enqueue_script( 'timu-core-ui', $this->plugin_url . 'core/assets/shared-admin.js', array( 'jquery' ), '1.26', true );
@@ -308,9 +297,6 @@ if ( ! class_exists( 'TIMU_Core_v1' ) ) {
             }
 
             $body = json_decode( wp_remote_retrieve_body( $response ), true );
-
-
-
             // 2. Failure: Capture the specific error message from your JSON API
             if ( isset( $body['status'] ) && 'active' === $body['status'] ) {
                 $this->license_message = ( $body['message'] );

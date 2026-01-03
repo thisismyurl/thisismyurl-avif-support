@@ -4,12 +4,12 @@
  * Author URI:          https://thisismyurl.com/?source=avif-support-thisismyurl
  * Plugin Name:         AVIF Support by thisismyurl.com
  * Plugin URI:          https://thisismyurl.com/avif-support-thisismyurl/?source=avif-support-thisismyurl
- * Donate link:         https://thisismyurl.com/donate/?source=avif-support-thisismyurl
+ * Donate link:         https://thisismyurl.com/avif-support-thisismyurl/#register?source=avif-support-thisismyurl
  * 
  * Description:         Safely enable AVIF uploads and convert existing images to AVIF format.
  * Tags:                avif, uploads, media library, optimization
  * 
- * Version:             1.26010217
+ * Version: 1.260102
  * Requires at least:   5.3
  * Requires PHP:        7.4
  * 
@@ -25,18 +25,12 @@
  * 
  * 
  */
-
-
-
 /**
  * Security: Prevent direct file access to mitigate path traversal or unauthorized execution.
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
-
-
 /**
  * Version-aware Core Loader
  *
@@ -96,8 +90,6 @@ class TIMU_AVIF_Support extends TIMU_Core_v1 {
 		 * Activation: Ensure baseline defaults are registered in the options table.
 		 */
 		register_activation_hook( __FILE__, array( $this, 'activate_plugin_defaults' ) );
-
-
 		add_action( 'timu_sidebar_under_banner', array( $this, 'render_default_sidebar_actions' ) );
 	}
 

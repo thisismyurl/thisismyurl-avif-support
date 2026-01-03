@@ -1,0 +1,10 @@
+name: PHP Lint
+on: [push, pull_request]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: PHP Syntax Check
+        run: find . -name "*.php" -exec php -l {} \;

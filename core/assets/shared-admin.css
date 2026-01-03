@@ -1,6 +1,6 @@
 /**
  * TIMU Shared Core CSS
- * Version: 1.26010217
+ * Version: 1.26010218
  *
  */
 .timu-admin-wrap { max-width: 1200px; margin: 20px 20px 0 0; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
@@ -41,9 +41,6 @@ input:checked + .timu-slider:before { transform: translateX(18px); }
     height: 100%;
 }
 
-
-
-
 /** * Styling for the disabled bulk button and save highlight
  */
 #timu-run-bulk:disabled {
@@ -65,10 +62,6 @@ input:checked + .timu-slider:before { transform: translateX(18px); }
     50% { transform: scale(1.05); box-shadow: 0 0 10px rgba(34, 113, 177, 0.7); }
     100% { transform: scale(1); }
 }
-
-
-/* Range Slider Styling */
-.timu-range-wrapper input[type=range] {
     flex-grow: 1;
     cursor: pointer;
 }

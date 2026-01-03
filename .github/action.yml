@@ -1,0 +1,7 @@
+# action.yml
+name: 'Plugin Releaser'
+description: 'Automates WordPress plugin zips'
+author: 'thisismyurl (https://github.com/thisismyurl)'
+branding:
+  icon: 'heart'
+  color: 'red'

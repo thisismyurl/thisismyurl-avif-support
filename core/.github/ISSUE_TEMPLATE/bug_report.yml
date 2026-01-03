@@ -1,0 +1,15 @@
+name: 🐛 Bug Report
+description: Report a bug or technical issue.
+labels: ["bug"]
+body:
+  - type: input
+    attributes:
+      label: WordPress Version
+      placeholder: e.g., 6.4.2
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to Reproduce
+    validations:
+      required: true

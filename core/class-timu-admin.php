@@ -91,10 +91,6 @@ public function render_generated_field( $args ) {
     echo '<div class="timu-field-wrapper' . esc_attr( $is_master ) . '"' . $conditional_attrs . '>';
     
     switch ( $args['type'] ) {
-
-
-        case 'switch':
-            echo '<label class="timu-switch">';
             echo '<input type="checkbox" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="1" ' . checked( 1, (int)$value, false ) . ' />';
             echo '<span class="timu-slider"></span></label>';
             break;
@@ -189,9 +185,6 @@ public function render_generated_field( $args ) {
             echo '<input type="text" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" class="regular-text" />';
             echo '</div>';
             break;
-
-
-
         default:
             echo '<input type="' . esc_attr( $args['type'] ) . '" name="' . esc_attr( $name ) . '" id="' . esc_attr( $args['id'] ) . '" value="' . esc_attr( $value ) . '" class="regular-text" />';
             break;
@@ -202,12 +195,8 @@ public function render_generated_field( $args ) {
     }
     echo '</div>';
 }
-
-
     public function render_progress_bar($percent = 0) {
-    echo '<div class="timu-progress-wrap" style="background:#dcdcde; height:20px; border-radius:10px; overflow:hidden; margin:10px 0;">';
-    echo '<div class="timu-progress-bar" style="width:' . (int)$percent . '%; background:#46b450; height:100%; transition: width 0.3s ease;"></div>';
-    echo '</div>';
+ 
 }
 
 public function render_nav_tabs() {
@@ -242,9 +231,6 @@ public function render_admin_notices() {
         echo '<div class="notice notice-success is-dismissible"><p>' . __('Settings saved successfully.', 'timu') . '</p></div>';
     }
 }
-
-
-
 public function add_media_sidebar_actions( $form_fields, $post ) {
     $form_fields['timu_optimization'] = array(
         'label' => __('Optimization', 'timu'),
