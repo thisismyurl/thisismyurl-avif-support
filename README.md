@@ -1,7 +1,7 @@
-﻿# avif-support-thisismyurl
+﻿# AVIF Support by thisismyurl
 ![Version](https://img.shields.io/badge/version-1.260102-blue.svg)
 
-Professional WordPress plugin.
+Supercharge your site speed with AVIF, the worldâ€™s most advanced image codec. Enable AVIF uploads, automate compression, and boost your Core Web Vitals instantly.
 
 ## ðŸ—ºï¸ Roadmap & Activity
 
