@@ -38,7 +38,7 @@ Visit [https://thisismyurl.com/avif-support-thisismyurl/#register](https://thisi
 AVIF support requires recent versions of the Imagick (ImageMagick 7.0.10-58+) or GD (PHP 8.1+) libraries. You can check your compatibility under **Tools > Site Health** in your WordPress dashboard.
 
 ## 🗺️ Roadmap & Activity
-
+https://github.com/thisismyurl/avif-support-thisismyurl/issues/1 https://github.com/thisismyurl/avif-support-thisismyurl/issues/2 https://github.com/thisismyurl/avif-support-thisismyurl/issues/3 https://github.com/thisismyurl/avif-support-thisismyurl/issues/4 https://github.com/thisismyurl/avif-support-thisismyurl/issues/5 https://github.com/thisismyurl/avif-support-thisismyurl/issues/6 https://github.com/thisismyurl/avif-support-thisismyurl/issues/7 
 
 ---
-Â© 2026 [thisismyurl](https://thisismyurl.com)
+([char]0x00A9) 2026 [thisismyurl](https://thisismyurl.com)

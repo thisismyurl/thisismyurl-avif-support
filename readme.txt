@@ -1,4 +1,4 @@
-=== AVIF Support by thisismyurl ===
+ï»¿=== AVIF Support by thisismyurl ===
 Contributors: thisismyurl
 Author: thisismyurl
 Author URI: https://thisismyurl.com/
@@ -13,13 +13,13 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 GitHub Plugin URI: https://github.com/thisismyurl/thisismyurl-avif-support/
 Primary Branch: main
 
-Supercharge your site speed with AVIF, the world’s most advanced image codec. Enable AVIF uploads, automate compression, and boost your Core Web Vitals instantly.
+Supercharge your site speed with AVIF, the worldï¿½s most advanced image codec. Enable AVIF uploads, automate compression, and boost your Core Web Vitals instantly.
 
 == Description ==
 
 **AVIF Support by thisismyurl.com** is a lightweight, performance-first utility designed to make your WordPress site faster, leaner, and more modern.
 
-AVIF is the next generation of image compression. Based on the AV1 video codec, it offers significantly better file size reduction than WebP, JPEG, or PNG—often reducing file sizes by up to 50% or more without any noticeable loss in visual quality. Smaller images mean faster load times, improved SEO rankings, and a superior experience for your visitors.
+AVIF is the next generation of image compression. Based on the AV1 video codec, it offers significantly better file size reduction than WebP, JPEG, or PNGï¿½often reducing file sizes by up to 50% or more without any noticeable loss in visual quality. Smaller images mean faster load times, improved SEO rankings, and a superior experience for your visitors.
 
 This plugin bridges the gap in WordPress by providing a fully automated workflow for image optimization as soon as you upload them.
 
@@ -58,18 +58,22 @@ AVIF support requires recent versions of the Imagick (ImageMagick 7.0.10-58+) or
 
 == Changelog ==
 
-= 1.26010222 =
-* Core hierarchy updated via avif-support-thisismyurl\avif-support-thisismyurl.php
-
-= 1.26010222 =
-* Core hierarchy updated via avif-support-thisismyurl\readme.txt
-
-= 1.26010222 =
-* Core hierarchy updated via avif-support-thisismyurl\README.md
-
 = 1.260102 =
 * Core hierarchy updated via core
 * Core hierarchy updated via avif-support-thisismyurl\readme.txt
 * Core hierarchy updated via Initial Launch.
 * Added native MIME support for AVIF files.
 * Integrated precision quality sliders for compression control.
+
+== Roadmap ==
+* [Issue] Setting to Remove EXIF Thumbnail Data
+* [Issue] Setting to Remove EXIF Location Data
+* [Issue] Setting to Remove EXIF Privacy Data
+* [Issue] Setting to Add Descriptive Metadata
+* [Issue] Setting to Add Copyright and Ownership
+* [Issue] Setting to Add Source URL
+* [Issue] Setting to Add Modification Date
+
+==
+
+
